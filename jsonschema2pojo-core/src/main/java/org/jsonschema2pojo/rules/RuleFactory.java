@@ -160,7 +160,30 @@ public class RuleFactory {
     public Rule<JDocCommentable, JDocComment> getRequiredRule() {
         return new RequiredRule(this);
     }
-    
+
+
+    /**
+     * Provides a rule instance that should be applied when a "nullable"
+     * declaration is found in the schema.
+     *
+     * @return a schema rule that can handle the "nullable" declaration.
+     */
+    public Rule<JDocCommentable, JDocComment> getNullableRule() {
+        return new NullableRule(this);
+    }
+
+
+    /**
+     * Provides a rule instance that should be applied when a "nonnull"
+     * declaration is found in the schema.
+     *
+     * @return a schema rule that can handle the "nullable" declaration.
+     */
+    public Rule<JDocCommentable, JDocComment> getNonnullRule() {
+        return new NonNullRule(this);
+    }
+
+
 
     /**
      * Provides a rule instance that should be applied to a node to find its

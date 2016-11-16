@@ -131,6 +131,14 @@ public class PropertyRule implements Rule<JDefinedClass, JDefinedClass> {
         if (node.has("required")) {
             ruleFactory.getRequiredRule().apply(nodeName, node.get("required"), generatedJavaConstruct, schema);
         }
+
+        if (node.has("nullable")) {
+            ruleFactory.getNullableRule().apply(nodeName, node.get("nullable"), generatedJavaConstruct, schema);
+        }
+
+        if (node.has("nonnull")) {
+            ruleFactory.getNonnullRule().apply(nodeName, node.get("nonnull"), generatedJavaConstruct, schema);
+        }
     }
 
     private JsonNode resolveRefs(JsonNode node, Schema parent) {

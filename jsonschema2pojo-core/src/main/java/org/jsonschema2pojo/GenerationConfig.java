@@ -190,6 +190,8 @@ public interface GenerationConfig {
      */
     boolean isIncludeJsr303Annotations();
 
+    boolean isIncludeGoogleAnnotations();
+
     /**
      * Gets the 'sourceType' configuration option.
      *
