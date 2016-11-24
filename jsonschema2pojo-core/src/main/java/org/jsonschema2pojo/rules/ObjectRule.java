@@ -122,6 +122,10 @@ public class ObjectRule implements Rule<JPackage, JType> {
             addInterfaces(jclass, node.get("javaInterfaces"));
         }
 
+        if(node.has("javaGenerics")) {
+            addGenerics(jclass, node.get("javaGenerics"), _package);
+        }
+
         ruleFactory.getAdditionalPropertiesRule().apply(nodeName, node.get("additionalProperties"), jclass, schema);
 
         ruleFactory.getDynamicPropertiesRule().apply(nodeName, node.get("properties"), jclass, schema);
@@ -532,6 +536,17 @@ public class ObjectRule implements Rule<JPackage, JType> {
     private void addInterfaces(JDefinedClass jclass, JsonNode javaInterfaces) {
         for (JsonNode i : javaInterfaces) {
             jclass._implements(resolveType(jclass._package(), i.asText()));
+        }
+    }
+
+    private void addGenerics(JDefinedClass jclass, JsonNode javaGenerics, JPackage _package) {
+        for (JsonNode i : javaGenerics) {
+            JsonNode className = i.findValue("inherits");
+            if(className != null) {
+                jclass.generify(i.findValue("value").asText(),_package._getClass(className.asText()));
+            }else{
+                jclass.generify(i.findValue("value").asText());
+            }
         }
     }
 
